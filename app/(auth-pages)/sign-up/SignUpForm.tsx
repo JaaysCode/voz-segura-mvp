@@ -2,8 +2,8 @@
 
 import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
-
 import { signUpAction } from "@/app/actions";
+
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -42,14 +42,12 @@ export default function SignUpForm({ searchParams }: SignUpFormProps) {
                     name = "username"
                     placeholder="Your username"
                     required
-                    //className="w-full p-3 rounded bg-white placeholder-gray-500  border border-black focus:outline-none focus:border-2 focus:border-purple-400"
                 />
                 <Input
                     type="email"
                     name = "email"
                     placeholder="you@example.com"
                     required
-                    //className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
                 />
                 <Input
                     type="password"
@@ -57,7 +55,6 @@ export default function SignUpForm({ searchParams }: SignUpFormProps) {
                     placeholder="Your password"
                     required
                     minLength={6}
-                    //className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
                 />  
                 <Input
                     type="password"
@@ -65,7 +62,6 @@ export default function SignUpForm({ searchParams }: SignUpFormProps) {
                     placeholder="Confirm your password"
                     required
                     minLength={6}
-                    //className="w-full p-3 rounded bg-white placeholder-gray-500 border border-black focus:outline-none focus:border-2 focus:border-purple-400"
                 />
                 <SubmitButton
                     formAction={signUpAction}
