@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
+  const showOnPage = formData.get("showOnPage")?.toString() === "true";
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
@@ -31,6 +32,11 @@ export const signUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
+    // Si showOnPage es true, devuelve una respuesta en lugar de redirigir
+    if (showOnPage) {
+      return { success: true, email };
+    }
+    
     return encodedRedirect(
       "success",
       "/sign-up",

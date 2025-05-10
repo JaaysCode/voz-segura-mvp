@@ -1,19 +1,5 @@
-import { FormMessage, Message } from "@/components/FormMessage";
-import SignUpForm from "./SignUpForm";
+import { redirect } from "next/navigation";
 
-export default async function Signup(props: {
-  searchParams: Promise<Message>;
-}) {
-  const searchParams = await props.searchParams;
-  if ("message" in searchParams) {
-    return (
-      <div>
-        <FormMessage message={searchParams} />
-      </div>
-    );
-  }
-
-  return (
-      <SignUpForm searchParams={searchParams}/>
-  );
+export default function Page() {
+  redirect("/auth?mode=signup");
 }
