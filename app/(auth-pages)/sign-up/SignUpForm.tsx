@@ -4,9 +4,9 @@ import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
 import { signUpAction } from "@/app/actions";
 
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
+import { FormMessage, Message } from "@/components/FormMessage";
+import { SubmitButton } from "@/components/ui/SubmitButton";
+import { Input } from "@/components/ui/Input";
 
 interface SignUpFormProps {
   searchParams?: Message;
@@ -19,11 +19,10 @@ export default function SignUpForm({ searchParams }: SignUpFormProps) {
         router.push('/sign-in');
     }
 
-  return(
-    <div className = "min-h-screen bg-[#f2caff] flex flex-col justify-center items-center px-4">
+  return(    <div className = "min-h-screen bg-[#f2caff] flex flex-col justify-center items-center px-4">
         <div className="rounded-lg p-8 w-full max-w-md shadow-md bg-[#ffff]">
             <div className="flex justify-center mb-6">
-                <Logo/>
+                <Logo isNavbarOrHeader={false} showText={false}/>
             </div>
             <div className="flex justify-center mb-6 text-black">
                 <button 

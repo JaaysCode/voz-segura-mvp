@@ -1,4 +1,4 @@
-import { FormMessage, Message } from "@/components/form-message";
+import { FormMessage, Message } from "@/components/FormMessage";
 import SignUpForm from "./SignUpForm";
 
 export default async function Signup(props: {

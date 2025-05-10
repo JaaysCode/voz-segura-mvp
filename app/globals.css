@@ -29,6 +29,13 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --primary-color: #6a1b9a;
+    --secundary-color: #9c27b0;
+    --tertiary-color: #e1bee7;
+    --text-color: #333333;
+    --background-color: #faf5ff;
+    --border-color: #ce93d8;
+    --highlight-color: #ff4081;
   }
 
   .dark {
@@ -63,7 +70,67 @@
   * {
     @apply border-border;
   }
+  html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+}
+
+/* Estilos para el componente Logo dentro del Navbar o Header */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img, .logo span[role="img"] {
+    height: 100px !important;
+    margin-right: 15px;
+}
+
+/* Estilos específicos para el Logo en páginas de autenticación */
+.auth-logo img {
+    height: 80px !important;
+    width: auto !important;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo span:not([role="img"]) {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: 5px;
+    color: var(--secundary-color);
+}
+
+/* Estilos del Navbar */
+nav ul.menu, nav ul a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav ul li a:hover {
+    color: var(--highlight-color);
+}
+
+/* Estilo para el menú móvil */
+@media (max-width: 768px) {
+    .logo img, .logo span[role="img"] {
+        height: 60px !important;
+    }
+    
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .logo span:not([role="img"]) {
+        font-size: 0.7rem;
+    }
 }

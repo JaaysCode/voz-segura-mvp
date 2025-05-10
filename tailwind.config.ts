@@ -10,6 +10,10 @@ const config = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+      serif: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+    },
     container: {
       center: true,
       padding: "2rem",

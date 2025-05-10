@@ -3,9 +3,9 @@
 import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
 import { signInAction } from "@/app/actions";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
-import { Input } from "@/components/ui/input";
+import { FormMessage, Message } from "@/components/FormMessage";
+import { SubmitButton } from "@/components/ui/SubmitButton";
+import { Input } from "@/components/ui/Input";
 import SignInWithGoogleButton from "./components/SignInWithGoogleButton";
 
 
@@ -25,7 +25,7 @@ export default function FormSignIn({searchParams}: SignInFormProps) {
     <div className = "min-h-screen bg-[#f2caff] flex flex-col justify-center items-center px-4">
         <div className="rounded-lg p-8 w-full max-w-md shadow-md bg-[#ffff]">
             <div className="flex justify-center mb-6">
-                <Logo/>
+                <Logo isNavbarOrHeader={false} showText={false}/>
             </div>
             <div className="flex justify-center mb-6 text-black">
                 <button className="px-4 font-semibold border-b-2 border-purple-400 transition">
