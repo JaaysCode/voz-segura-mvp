@@ -1,6 +1,6 @@
 'use client';
 
-import UserMenu from "./UserMenu";
+import UserMenu from "./user-menu/UserMenu";
 import NavLink from './NavLink';
 
 // Definir los enlaces en un array para facilitar su mantenimiento
