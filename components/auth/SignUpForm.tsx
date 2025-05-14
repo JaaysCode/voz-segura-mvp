@@ -50,40 +50,40 @@ export default function SignUpForm({ searchParams, standalone = true }: SignUpFo
                     <Input
                         type="text"
                         name="username"
-                        placeholder="Your username"
+                        placeholder="Tu nombre de usuario"
                         required
                     />
                     <Input
                         type="email"
                         name="email"
-                        placeholder="you@example.com"
+                        placeholder="tu@ejemplo.com"
                         required
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Input
                         type="password"
                         name="password"
-                        placeholder="Your password"
+                        placeholder="Tu contraseña"
                         required
                         minLength={6}
                     />  
                     <Input
                         type="password"
                         name="confirmPassword"
-                        placeholder="Confirm your password"
+                        placeholder="Confirma tu contraseña"
                         required
                         minLength={6}
                     />
                     <SubmitButton
-                        pendingText="Signing up..."
+                        pendingText="Creando cuenta..."
                         className="w-full text-white py-3 rounded transition bg-[#7A0A9A] hover:bg-[#9B2DCA] focus:outline-none focus:border-2 focus:border-purple-400"
                     >
-                        Sign Up
+                        Registrarse
                     </SubmitButton>
                 </form>
             )}{standalone && (
                 <p className="text-center text-sm text-black mt-4">
-                    Already have an account? <a href="/auth?mode=signin" className="text-purple-500 hover:underline">Sign In</a>
+                    ¿Ya tienes cuenta? <a href="/auth?mode=signin" className="text-purple-500 hover:underline">Sign In</a>
                 </p>
             )}
             {!registrationComplete && searchParams && <FormMessage message={searchParams} />}
@@ -103,10 +103,10 @@ export default function SignUpForm({ searchParams, standalone = true }: SignUpFo
                             className="px-4 font-semibold border-b-2 border-transparent hover:border-purple-400 transition"
                             onClick={handleSignInClick}
                         >
-                            Sign In
+                            Iniciar Sesión
                         </button>
                         <button className="px-4 font-semibold border-b-2 border-purple-400 transition">
-                            Sign Up
+                            Registrarse
                         </button>
                     </div>
                     {formContent}

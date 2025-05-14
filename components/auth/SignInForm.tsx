@@ -18,26 +18,25 @@ export default function SignInForm({searchParams, standalone = true}: SignInForm
         router.push('/auth?mode=signup');
     };
 
-    // El contenido del formulario que siempre se muestra
     const formContent = (
         <>
             <form className="space-y-4">
                 <Input
                     type="email"
                     name="email"
-                    placeholder="you@example.com"
+                    placeholder="tu@ejemplo.com"
                     required
                 />
                 <Input
                     type="password"
                     name="password"
-                    placeholder="Your password"
+                    placeholder="Tu contraseña"
                     required
                     minLength={6}
                 />
                 
                 <SubmitButton
-                    pendingText="Signing in..."
+                    pendingText="Iniciando Sesión..."
                     formAction={signInAction}
                     type="submit"
                     className="w-full text-white py-3 rounded transition bg-[#7A0A9A] hover:bg-[#9B2DCA] focus:outline-none focus:border-2 focus:border-purple-400">
@@ -55,14 +54,13 @@ export default function SignInForm({searchParams, standalone = true}: SignInForm
                 <SignInWithGoogleButton/>
             </form>            {standalone && (
                 <p className="text-center text-sm text-black mt-4">
-                    Don't have an account? <a href="/auth?mode=signup" className="text-purple-500 hover:underline">Sign Up</a>
+                    ¿Eres nuevo? <a href="/auth?mode=signup" className="text-purple-500 hover:underline">Sign Up</a>
                 </p>
             )}
             {searchParams && <FormMessage message={searchParams} />}
         </>
     );
 
-    // Si es una página independiente, mostrar con el layout completo
     if (standalone) {
         return (
             <div className="min-h-screen bg-[#f2caff] flex flex-col justify-center items-center px-4">
@@ -72,13 +70,13 @@ export default function SignInForm({searchParams, standalone = true}: SignInForm
                     </div>
                     <div className="flex justify-center mb-6 text-black">
                         <button className="px-4 font-semibold border-b-2 border-purple-400 transition">
-                            Sign In
+                            Iniciar Sesión
                         </button>
                         <button 
                             className="px-4 font-semibold border-b-2 border-transparent hover:border-purple-400 transition"
                             onClick={handleSignUpClick}
                         >
-                            Sign Up
+                            Registrarse
                         </button>
                     </div>
                     {formContent}
@@ -87,7 +85,6 @@ export default function SignInForm({searchParams, standalone = true}: SignInForm
         );
     }
 
-    // Si es usado en el componente animado, solo devolver el contenido del formulario
     return (
         <div className="rounded-lg p-6 w-full shadow-md bg-white">
             {formContent}
