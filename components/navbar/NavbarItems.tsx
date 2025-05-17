@@ -5,8 +5,8 @@ import NavLink from './NavLink';
 
 // Definir los enlaces en un array para facilitar su mantenimiento
 export const navLinks = [
-  { href: "#home", label: "INICIO" },
-  { href: "#about", label: "ACERCA DE" },
+  { href: "/protected/home", label: "INICIO" },
+  { href: "/protected/about-us", label: "ACERCA DE" },
   { href: "#map", label: "MAPA" },
   { href: "#events", label: "EVENTOS" },
   { href: "#donations", label: "DONACIONES" },

@@ -1,6 +1,6 @@
 import Footer from "@/components/footer/Footer"
-import Header from "@/components/Header"
-import HeroSection from "@/components/Hero"
+import HeroSection from "@/app/protected/home/components/Hero"
+import Header from "@/components/Header";
 import Welcome from "@/components/welcome/Welcome"
 import ForumSection from '../../../components/forum/ForumSection';
 export default function Home() {

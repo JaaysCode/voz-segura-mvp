@@ -1,5 +1,5 @@
 import React from 'react'
-import WelcomeCard from './WelcomeCard';
+import Card from '../Card';
 import { FaHandsHelping, FaInfoCircle, FaMapMarkedAlt } from 'react-icons/fa';
 const Welcome = () => {
   return (
@@ -14,23 +14,23 @@ const Welcome = () => {
               </p>
 
               <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-6xl mx-auto'>                
-                <WelcomeCard>
+                <Card>
                   <FaHandsHelping/>
                   <h3 className='text-xl font-bold mb-3 text-[var(--primary-color)]'>Sororidad</h3>
                   <p>Conéctate con otras mujeres que comparten tus preocupaciones y experiencias en un espacio seguro y de apoyo mutuo.</p>
-                </WelcomeCard>
+                </Card>
 
-                <WelcomeCard>
+                <Card>
                   <FaMapMarkedAlt/>
                   <h3 className='text-xl font-bold mb-3 text-purple-900'>Mapa Seguro</h3>
                   <p>Identifica zonas seguras y de riesgo en la Universidad de Medellín con nuestro mapa colaborativo actualizado por la comunidad.</p>
-                </WelcomeCard>
+                </Card>
 
-                <WelcomeCard>
+                <Card>
                   <FaInfoCircle/>
                   <h3 className='text-xl font-bold mb-3 text-purple-900'>Recursos</h3>
                   <p>Accede a información clave sobre tus derechos, protocolos de seguridad y organizaciones de apoyo.</p>
-                </WelcomeCard>
+                </Card>
               </div>    
           </div>
       </section>
