@@ -7,7 +7,7 @@ import NavLink from './NavLink';
 export const navLinks = [
   { href: "/protected/home", label: "INICIO" },
   { href: "/protected/about-us", label: "ACERCA DE" },
-  { href: "#map", label: "MAPA" },
+  { href: "/protected/map", label: "MAPA" },
   { href: "#events", label: "EVENTOS" },
   { href: "#donations", label: "DONACIONES" },
   { href: "#contact", label: "CONTACTO" }

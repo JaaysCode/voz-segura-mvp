@@ -15,11 +15,8 @@ const Card: React.FC<CardProps> = ({
     cursorPointer = true,
     minHeight = '280px',
 }) => {
-  // Convertir los children en un array para manipularlos
   const childrenArray = React.Children.toArray(children);
-  // El primer hijo es el icono
   const icon = childrenArray[0];
-  // Los demás hijos son el contenido (h3 y p)
   const content = childrenArray.slice(1);
   
   return (
