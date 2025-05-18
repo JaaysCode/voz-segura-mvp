@@ -4,7 +4,7 @@ import AboutUsHero from './components/Hero';
 import MisionVision from './components/MisionVision';
 import MoralValues from './components/MoralValues';
 import Impact from './components/Impact';
-export default function Home() {
+export default function AboutUs() {
     return(
         <div className="m-0 p-0 box-border min-h-screen bg-[var(--background-color)] text-[var(--text-color)] leading-[1.6]">
             <Header />
