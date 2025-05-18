@@ -6,13 +6,13 @@ import FooterLinks from './FooterLinks'
 const Footer = () => {
   const footerLinks = [
     [
-      { href: "#about", text: "Acerca de" },
-      { href: "#map", text: "Mapa seguro" },
-      { href: "#events", text: "Eventos" },
-      { href: "#donations", text: "Donaciones" }
+      { href: "/protected/about-us", text: "Acerca de" },
+      { href: "/protected/map", text: "Mapa seguro" },
+      { href: "/protected/events", text: "Eventos" },
+      { href: "/protected/donations", text: "Donaciones" }
     ],
     [
-      { href: "#contact", text: "Contacto" },
+      { href: "/protected/contact", text: "Contacto" },
       { href: "#", text: "Política de privacidad" },
       { href: "#", text: "Términos de uso" },
       { href: "#", text: "Preguntas frecuentes" }
