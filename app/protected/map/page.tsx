@@ -5,12 +5,39 @@ import Header from "@/components/Header";
 import Reports from "./components/Reports";
 import ReportForm from "./components/ReportForm";
 import MapSection from "./components/MapSection";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Interfaz para los reportes
+export interface Report {
+    id: string;
+    coordinates: [number, number];
+    riskType: 'high' | 'medium' | 'low';
+    title: string;
+    description: string;
+    specificLocation: string; // Ubicación específica introducida por el usuario
+    date: string;
+    reporter?: string;
+}
 
 export default function Map() {
     const [showForm, setShowForm] = useState(false);
     const [locationCoords, setLocationCoords] = useState<[number, number] | null>(null);
-    const [riskType, setRiskType] = useState<'high' | 'medium' | 'low'>('medium');    const handleLocationSelected = (position: [number, number]) => {
+    const [riskType, setRiskType] = useState<'high' | 'medium' | 'low'>('medium');
+    const [reports, setReports] = useState<Report[]>([]);
+    const [savedMarkers, setSavedMarkers] = useState<Array<{coordinates: [number, number], riskType: 'high' | 'medium' | 'low'}>>([]);
+    
+    // Cargar reportes del localStorage al iniciar
+    useEffect(() => {
+        const savedReports = localStorage.getItem('reports');
+        if (savedReports) {
+            setReports(JSON.parse(savedReports));
+        }
+        
+        const markers = localStorage.getItem('markers');
+        if (markers) {
+            setSavedMarkers(JSON.parse(markers));
+        }
+    }, []);    const handleLocationSelected = (position: [number, number]) => {
         setLocationCoords(position);
         setShowForm(true);
     };
@@ -23,8 +50,41 @@ export default function Map() {
         setShowForm(false);
         setLocationCoords(null);
     };
-
-    return (
+      const handleSubmitReport = (title: string, description: string, specificLocation: string) => {
+        if (locationCoords) {
+            // Crear nuevo reporte
+            const newReport: Report = {
+                id: Date.now().toString(),
+                coordinates: locationCoords,
+                riskType: riskType,
+                title: title,
+                description: description,
+                specificLocation: specificLocation, // Guardamos la ubicación específica
+                date: new Date().toISOString(),
+                reporter: 'Anónimo' // Puedes cambiarlo si tienes sistema de usuarios
+            };
+              // Agregar marcador guardado
+            const newMarker = {
+                coordinates: locationCoords,
+                riskType: riskType,
+                title: title,
+                specificLocation: specificLocation
+            };
+            
+            // Actualizar reportes (manteniendo solo los 3 más recientes)
+            const updatedReports = [newReport, ...reports].slice(0, 3);
+            const updatedMarkers = [...savedMarkers, newMarker];
+            
+            // Guardar en el estado y localStorage
+            setReports(updatedReports);
+            setSavedMarkers(updatedMarkers);
+            localStorage.setItem('reports', JSON.stringify(updatedReports));
+            localStorage.setItem('markers', JSON.stringify(updatedMarkers));
+            
+            // Cerrar formulario pero mantener las coordenadas para el marcador
+            setShowForm(false);
+        }
+    };    return (
         <div>
         <Header/>
             <div className="pb-16 bg-white">
@@ -36,15 +96,17 @@ export default function Map() {
                     <MapSection 
                         onLocationSelected={handleLocationSelected} 
                         riskType={riskType} 
-                        resetMarker={!showForm} 
+                        resetMarker={!showForm}
+                        savedMarkers={savedMarkers}
                     />
                     {showForm && <ReportForm 
                         onRiskTypeChange={handleRiskTypeChange} 
                         onCancel={handleCancelReport}
+                        onSubmit={handleSubmitReport}
                     />}
-                <Reports/></div>
-                <Footer/>
+                <Reports reports={reports} /></div>
             </div>
+            <Footer/>
         </div>
     )
 }

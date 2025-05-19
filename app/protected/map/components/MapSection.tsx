@@ -12,9 +12,10 @@ interface MapSectionProps {
     onLocationSelected: (position: [number, number]) => void;
     riskType: 'high' | 'medium' | 'low';
     resetMarker?: boolean;
+    savedMarkers?: Array<{coordinates: [number, number], riskType: 'high' | 'medium' | 'low'}>;
 }
 
-export default function MapSection({ onLocationSelected, riskType, resetMarker }: MapSectionProps) {
+export default function MapSection({ onLocationSelected, riskType, resetMarker, savedMarkers = [] }: MapSectionProps) {
     const [reportMode, setReportMode] = useState(false);
 
     // Reset report mode when resetMarker changes to true
@@ -92,6 +93,7 @@ export default function MapSection({ onLocationSelected, riskType, resetMarker }
                 reportMode={reportMode} 
                 onLocationSelected={handleLocationSelected} 
                 riskType={riskType}
+                savedMarkers={savedMarkers}
             />
         </div>
     )

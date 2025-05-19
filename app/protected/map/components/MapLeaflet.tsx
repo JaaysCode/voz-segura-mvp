@@ -100,17 +100,22 @@ interface MapLeafletProps {
     onLocationSelected?: (position: [number, number]) => void;
     riskType?: 'high' | 'medium' | 'low';
     resetMarker?: boolean;
+    savedMarkers?: Array<{
+        coordinates: [number, number], 
+        riskType: 'high' | 'medium' | 'low',
+        title?: string,
+        specificLocation?: string
+    }>;
 }
 
 const MapLeaflet = ({ 
     reportMode = false, 
     onLocationSelected = () => {}, 
     riskType = 'medium',
-    resetMarker = false
+    resetMarker = false,
+    savedMarkers = []
 }: MapLeafletProps) => {
-    const udemCoords: [number, number] = [6.231111, -75.611389];
-
-    return(
+    const udemCoords: [number, number] = [6.231111, -75.611389];    return(
         <div className="w-full h-[500px] rounded-xl overflow-hidden shadow-lg">
             <MapContainer center={udemCoords} zoom={17} scrollWheelZoom={true} className="w-full h-full z-0">
                 <TileLayer
@@ -126,6 +131,46 @@ const MapLeaflet = ({
                         resetMarker={resetMarker}
                     />
                 )}
+                
+                {/* Mostrar marcadores guardados */}
+                {savedMarkers.map((marker, index) => {
+                    // Define marker colors based on risk type
+                    const riskColors = {
+                        high: '#F44336', // Red
+                        medium: '#FFC107', // Yellow
+                        low: '#4CAF50' // Green
+                    };
+                    
+                    // Create an icon with color based on risk type
+                    const savedIcon = L.divIcon({
+                        className: 'saved-marker',
+                        html: `
+                            <div style="background-color: ${riskColors[marker.riskType]}; width: 32px; height: 32px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        `,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                    });
+                    
+                    return (                        <Marker 
+                            key={`saved-marker-${index}`} 
+                            position={marker.coordinates} 
+                            icon={savedIcon}
+                        >
+                            <Popup>
+                                {marker.title ? (
+                                    <>
+                                        <b>{marker.title}</b><br/>
+                                        {marker.specificLocation && `${marker.specificLocation}`}
+                                    </>
+                                ) : (
+                                    'Zona reportada'
+                                )}
+                            </Popup>
+                        </Marker>
+                    );
+                })}
             </MapContainer>
         </div> 
     );

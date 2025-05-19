@@ -1,6 +1,17 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-export default function ReportCard() {  
+interface ReportCardProps {
+    title: string;
+    description: string;
+    location: string;
+    date: string;
+    riskType: {
+        label: string;
+        classes: string;
+    };
+}
+
+export default function ReportCard({ title, description, location, date, riskType }: ReportCardProps) {  
 
     return(
         <div className="
@@ -18,11 +29,10 @@ export default function ReportCard() {
                 flex 
                 justify-between 
                 items-center 
-                border-b 
-                border-[var(--border-color)]"
+                border-b                border-[var(--border-color)]"
             >
-                <h4 className="text-[var(--primary-color)] mb-0 font-bold">Problema de luces</h4>
-                <span className="px-[0.8rem] py-[0.3rem] rounded-[15px] text-[0.8rem] font-semibold bg-[#FFEBEE] text-[#FFA000] ml-auto">Riesgo Medio</span>
+                <h4 className="text-[var(--primary-color)] mb-0 font-bold">{title}</h4>
+                <span className={`px-[0.8rem] py-[0.3rem] rounded-[15px] text-[0.8rem] font-semibold ${riskType.classes} ml-auto`}>{riskType.label}</span>
             </div>
 
             <div className="p-6">
@@ -31,13 +41,12 @@ export default function ReportCard() {
                     text-[0.9rem]
                     mb-4
                     flex
-                    items-center
-                    gap-[5px]
+                    items-center                    gap-[5px]
                 ">
                     <FaMapMarkerAlt/>
-                    <span>Cra. 87 frente al bloque 1</span>
+                    <span>{location}</span>
                 </div>
-                <p> Falta de iluminación adecuada en la entrada principal luego de las 7pm.</p>
+                <p>{description}</p>
             </div>
             <div className="
                 p-4
@@ -47,7 +56,7 @@ export default function ReportCard() {
                 items-center
                 text-[0.9rem]
             "> 
-                <span className="text-[#666]">Reportado hace 2 días</span>
+                <span className="text-[#666]">{date}</span>
 
             </div>
         </div>

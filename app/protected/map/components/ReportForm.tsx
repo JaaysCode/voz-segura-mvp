@@ -5,12 +5,17 @@ import { useEffect, useState } from "react";
 
 interface ReportFormProps {
     onRiskTypeChange: (type: 'high' | 'medium' | 'low') => void;
-    onCancel?: () => void;  // Nueva prop para manejar la cancelación
+    onCancel?: () => void;  // Para manejar la cancelación
+    onSubmit?: (title: string, description: string, specificLocation: string) => void; // Actualizado para incluir la ubicación específica
 }
 
-export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormProps) {
+export default function ReportForm({ onRiskTypeChange, onCancel, onSubmit }: ReportFormProps) {
     const [riskType, setRiskType] = useState<'high' | 'medium' | 'low'>('medium');
-      useEffect(() => {
+    const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
         // Scroll to the form when it appears
         const reportForm = document.getElementById('report-form');
         if (reportForm) {
@@ -22,6 +27,11 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
         const value = e.target.value as 'high' | 'medium' | 'low';
         setRiskType(value);
         onRiskTypeChange(value);
+    };
+      const handleSubmit = () => {
+        if (title.trim() && description.trim() && onSubmit) {
+            onSubmit(title, description, location);
+        }
     };
 
     return (
@@ -38,8 +48,7 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                 <FaExclamationTriangle className="text-[var(--secondary-color)]"/> Reportar Zona insegura en la UDEM
             </h3>
             <div className="mb-6">
-                <label className="inline-block mb-2 font-semibold text-[var(--primary-color)]"> Titulo del Reporte</label>
-                <input 
+                <label className="inline-block mb-2 font-semibold text-[var(--primary-color)]"> Titulo del Reporte</label>                <input 
                     className="
                         w-[100%]
                         p-[0.8rem] 
@@ -52,12 +61,14 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                         focus:border-[var(--primary-color)]
                         focus:shadow-[0,_0,_0,_3px_rgba(156,39,176,0.2)] " 
                     type="text" 
-                    placeholder="Ej: Entrada del coliseo">
+                    placeholder="Ej: Entrada del coliseo"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    >
                 </input>
 
             </div>            <div className="mb-6">
-                <label className="block mb-2 font-semibold text-[var(--primary-color)]">Ubicación Específica</label>
-                <input 
+                <label className="block mb-2 font-semibold text-[var(--primary-color)]">Ubicación Específica</label>                <input 
                     className="
                         w-[100%]
                         p-[0.8rem] 
@@ -70,6 +81,8 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                         focus:border-[var(--primary-color)]
                         focus:shadow-[0,_0,_0,_3px_rgba(156,39,176,0.2)] " 
                     type="text" 
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                     placeholder="Ej: Bloque 3, segundo piso, baños..." />
             </div>
             <div className="mb-6">                <label className="block mb-2 font-semibold text-[var(--primary-color)]">Tipo de riesgo</label>
@@ -95,8 +108,7 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                 </select>
             </div>
             <div className="mb-6">
-                <label className="block mb-2 font-semibold text-[var(--primary-color)]"> Descripción</label>
-                <textarea 
+                <label className="block mb-2 font-semibold text-[var(--primary-color)]"> Descripción</label>                <textarea 
                     className="
                         w-[100%]
                         p-[0.8rem] 
@@ -113,7 +125,9 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                         " 
                     placeholder="Describe por qué consideras
                                         que esta zona es insegura. Incluye detalles
-                                        como horarios, situaciones específicas, etc."> 
+                                        como horarios, situaciones específicas, etc."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}> 
                 </textarea>
             </div>
             <div className="flex justify-end gap-4">                <button 
@@ -139,8 +153,8 @@ export default function ReportForm({ onRiskTypeChange, onCancel }: ReportFormPro
                     type="button"
                     >
                         Cancelar
-                </button>
-                <button
+                </button>                <button
+                    onClick={handleSubmit}
                     className="
                         inline-block
                         bg-[var(--primary-color)]
