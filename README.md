@@ -1,104 +1,125 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Voz Segura
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+![Logo de Voz Segura](/public/images/voz-segura-logo.png)
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## Descripción del Proyecto
 
-## Features
+Voz Segura es una plataforma de apoyo, conciencia y acción para mujeres, enfocada en crear espacios públicos más seguros e inclusivos. Esta aplicación web proporciona a las mujeres herramientas y recursos para sentirse más seguras en sus entornos, especialmente dentro del campus de la Universidad de Medellín.
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Misión
 
-## Demo
+Empoderar a las mujeres a través de una plataforma colaborativa que promueva la seguridad en espacios públicos, fomentando la sororidad, brindando herramientas de protección y generando conciencia social sobre la importancia de entornos libres de violencia de género.
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+## Visión
 
-## Deploy to Vercel
+Ser el movimiento líder en América Latina que transforme los espacios públicos en entornos verdaderamente seguros e inclusivos para todas las mujeres, donde puedan desarrollarse con plena libertad y autonomía, sin temor a la violencia o el acoso.
 
-Vercel deployment will guide you through creating a Supabase account and project.
+## Características Principales
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+- **Mapa Colaborativo**: Identifica y comparte zonas seguras y de riesgo dentro del campus universitario.
+- **Foro de Apoyo**: Espacio para compartir experiencias, hacer preguntas y brindar apoyo a otras mujeres.
+- **Comentarios Anónimos**: Sistema que permite a las usuarias expresarse con total confidencialidad.
+- **Calendario de Eventos**: Talleres, charlas y encuentros relacionados con seguridad, empoderamiento y apoyo mutuo.
+- **Sistema de Suscripción**: Las usuarias pueden suscribirse a eventos de su interés.
+- **Recursos Informativos**: Acceso a información sobre derechos, protocolos de seguridad y organizaciones de apoyo.
+- **Sección de Donaciones**: Permite apoyar económicamente al proyecto para su sostenibilidad.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+## Tecnologías Utilizadas
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Autenticación**: Supabase Auth con soporte para email/password y Google
+- **Despliegue**: Vercel
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+## Instalación y Configuración
 
-## Clone and run locally
+### Requisitos Previos
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Cuenta en Supabase
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### Pasos para Instalación Local
 
+1. Clonar el repositorio:
    ```bash
-   npx create-next-app --example with-supabase with-supabase-app
+   git clone https://github.com/tu-usuario/voz-segura-mvp.git
+   cd voz-segura-mvp
    ```
 
+2. Instalar dependencias:
    ```bash
-   yarn create next-app --example with-supabase with-supabase-app
+   npm install
+   # o
+   yarn install
    ```
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
+3. Configurar variables de entorno:
+   Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
    ```
 
-3. Use `cd` to change into the app's directory
+4. Inicializar la base de datos:
+   Ejecuta los scripts SQL ubicados en la carpeta `/schema` en tu proyecto de Supabase.
 
-   ```bash
-   cd with-supabase-app
-   ```
-
-4. Rename `.env.example` to `.env.local` and update the following:
-
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
-
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-
-5. You can now run the Next.js local development server:
-
+5. Iniciar el servidor de desarrollo:
    ```bash
    npm run dev
+   # o
+   yarn dev
    ```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+6. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+## Estructura del Proyecto
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+- `/app`: Componentes y páginas de la aplicación (Next.js App Router)
+- `/components`: Componentes reutilizables
+- `/lib`: Utilidades y contextos
+- `/public`: Archivos estáticos
+- `/schema`: Scripts SQL para la configuración de la base de datos
+- `/services`: Servicios para interactuar con la API de Supabase
+- `/utils`: Funciones de utilidad
 
-## Feedback and issues
+## Despliegue
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+El proyecto está configurado para ser desplegado en Vercel. Puedes hacerlo fácilmente con los siguientes pasos:
 
-## More Supabase examples
+1. Conecta tu repositorio a Vercel
+2. Configura las variables de entorno en el panel de Vercel
+3. Despliega la aplicación
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone)
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, sigue estos pasos para contribuir:
+
+1. Haz un fork del repositorio
+2. Crea una rama para tu característica (`git checkout -b feature/nueva-caracteristica`)
+3. Haz commit de tus cambios (`git commit -m 'Añadir nueva característica'`)
+4. Haz push a la rama (`git push origin feature/nueva-caracteristica`)
+5. Abre un Pull Request
+
+## Valores
+
+- **Sororidad**: Creemos en la alianza entre mujeres para construir redes de apoyo.
+- **Seguridad**: Priorizamos la integridad física y emocional de nuestras usuarias.
+- **Confidencialidad**: Respetamos y protegemos la privacidad de todas las usuarias.
+- **Comunidad**: Fomentamos la colaboración y el apoyo mutuo entre todas las integrantes.
+- **Justicia**: Trabajamos por un mundo donde todas las mujeres puedan vivir libres de violencia.
+- **Innovación**: Buscamos constantemente nuevas formas de abordar los desafíos de seguridad.
+
+## Licencia
+
+[MIT](LICENSE)
+
+## Contacto
+
+Para más información o consultas, por favor contacta a través de la [página de contacto](https://voz-segura.vercel.app/protected/contact) o escribe directamente a contacto@vozsegura.org.
+
+---
+
+Voz Segura © 2025 - Plataforma de Apoyo, Conciencia y Acción para Mujeres

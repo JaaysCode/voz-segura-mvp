@@ -11,6 +11,8 @@ export const signUpAction = async (formData: FormData) => {
   const showOnPage = formData.get("showOnPage")?.toString() === "true";
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
+  // Usar la variable de entorno NEXT_PUBLIC_APP_URL si está disponible, si no usar origin
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || origin;
 
   if (!email || !password) {
     return encodedRedirect(
@@ -24,7 +26,7 @@ export const signUpAction = async (formData: FormData) => {
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+      emailRedirectTo: `${appUrl}/auth/callback`,
     },
   });
 
@@ -66,6 +68,8 @@ export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
+  // Usar la variable de entorno NEXT_PUBLIC_APP_URL si está disponible, si no usar origin
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || origin;
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
@@ -73,7 +77,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/callback?redirect_to=/protected/reset-password`,
+    redirectTo: `${appUrl}/auth/callback?redirect_to=/protected/reset-password`,
   });
 
   if (error) {
