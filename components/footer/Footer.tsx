@@ -44,7 +44,7 @@ const Footer = () => {
                 </div>
           
           <p className="text-center mt-8 text-sm">
-            © 2023 Voz Segura. Todos los derechos reservados. Juntas somos más fuertes.
+            © 2025 Voz Segura. Todos los derechos reservados. Juntas somos más fuertes.
           </p>
         </div>
       </footer>
