@@ -1,59 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import EventCard from './EventCard';
 import { FaArrowRight, FaCalendarAlt } from 'react-icons/fa';
+import { eventService } from '@/services/eventService';
+
+interface EventDate {
+  day: string;
+  month: string;
+}
+
+interface EventData {
+  id: number;
+  category: string;
+  categoryLabel: string;
+  categoryIcon: string;
+  title: string;
+  time: string;
+  location: string;
+  description: string;
+  image: string;
+  date: EventDate;
+  attendees: string[];
+}
 
 const EventsSection = () => {
-  const events = [
-    {
-      id: 1,
-      category: 'workshop',
-      categoryLabel: 'Taller',
-      categoryIcon: 'fa-hands-helping',
-      title: 'Autodefensa feminista',
-      time: '16:00 - 18:00 hrs',
-      location: 'Teatro',
-      description: 'Taller práctico impartido por expertas en seguridad personal, donde aprenderás técnicas básicas de autodefensa desde una perspectiva feminista.',
-      image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      date: {
-        day: '15',
-        month: 'JUN'
-      },
-      attendees: ['A', 'M', '+12']
-    },
-    {
-      id: 2,
-      category: 'talk',
-      categoryLabel: 'Charla',
-      categoryIcon: 'fa-comments',
-      title: 'Seguridad digital para mujeres',
-      time: '14:00 - 15:30 hrs',
-      location: 'Aula 302',
-      description: 'Aprende a proteger tu privacidad en redes sociales y plataformas digitales con herramientas prácticas y consejos de expertas en ciberseguridad.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      date: {
-        day: '22',
-        month: 'JUN'
-      },
-      attendees: ['C', 'P', '+8']
-    },
-    {
-      id: 3,
-      category: 'meetup',
-      categoryLabel: 'Encuentro',
-      categoryIcon: 'fa-heart',
-      title: 'Círculo de sororidad',
-      time: '18:00 - 20:00 hrs',
-      location: 'Prometeo',
-      description: 'Un espacio seguro para compartir experiencias, construir redes de apoyo y fortalecer nuestros lazos como comunidad de mujeres.',
-      image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      date: {
-        day: '30',
-        month: 'JUN'
-      },
-      attendees: ['M', 'G', '+15']
-    }
-  ];
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [loading, setLoading] = useState(true);  // Cargar eventos desde Supabase
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const eventsData = await eventService.getAllEvents();
+        setEvents(eventsData);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchEvents();
+  }, []);
   return (
     <section id="events" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -68,9 +54,32 @@ const EventsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {events.map(event => (
-            <EventCard key={event.id} event={event} />
-          ))}
+          {loading ? (
+            Array(3).fill(0).map((_, index) => (
+              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-lg border-l-4 border-[var(--secondary-color)] animate-pulse">
+                <div className="h-[200px] bg-gray-200"></div>
+                <div className="p-8">
+                  <div className="h-6 bg-gray-200 rounded-full w-1/3 mb-4"></div>
+                  <div className="h-8 bg-gray-200 rounded-full w-2/3 mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded-full w-full mb-5"></div>
+                  <div className="h-4 bg-gray-200 rounded-full w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded-full w-2/3 mb-5"></div>
+                  <div className="flex justify-between items-center">
+                    <div className="h-10 bg-gray-200 rounded-full w-1/3"></div>
+                    <div className="h-6 bg-gray-200 rounded-full w-1/4"></div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : events.length === 0 ? (
+            <div className="col-span-3 text-center p-12 bg-gray-50 rounded-xl">
+              <p className="text-gray-500 text-lg">No hay eventos programados actualmente.</p>
+            </div>
+          ) : (
+            events.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))
+          )}
         </div>
 
         <div className="bg-[var(--tertiary-color)] rounded-xl p-12 text-center mt-8">

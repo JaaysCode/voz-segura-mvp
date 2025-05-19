@@ -1,5 +1,7 @@
-import React, {useState} from "react";
-import { FaBell, FaClock, FaMapMarkerAlt } from "react-icons/fa";
+import React, {useState, useEffect} from "react";
+import { FaBell, FaClock, FaMapMarkerAlt, FaCheckCircle, FaBellSlash } from "react-icons/fa";
+import { eventService } from "@/services/eventService";
+import { useUser } from "@/lib/UserContext";
 
 interface EventDate {
   day: string;
@@ -38,6 +40,49 @@ const getTagStyle = (category: string) => {
 };
 
 export default function EventCard({ event }: EventCardProps) {
+    const { user } = useUser();
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
+    useEffect(() => {
+        const checkSubscription = async () => {
+            if (user) {
+                try {
+                    const subscribed = await eventService.isSubscribed(event.id, user.id);
+                    setIsSubscribed(subscribed);
+                } catch (error) {
+                    console.error('Error checking subscription:', error);
+                }
+            }
+        };
+        
+        checkSubscription();
+    }, [user, event.id]);
+    
+    // Manejar la suscripción o cancelación
+    const handleSubscription = async () => {
+        if (!user) {
+            alert('Debes iniciar sesión para suscribirte a eventos');
+            return;
+        }
+        
+        setIsLoading(true);
+        
+        try {
+            if (isSubscribed) {
+                await eventService.unsubscribeFromEvent(event.id, user.id);
+                setIsSubscribed(false);
+            } else {
+                await eventService.subscribeToEvent(event.id, user.id);
+                setIsSubscribed(true);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ha ocurrido un error. Por favor, inténtalo de nuevo.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return(
         <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-[10px] border-l-4 border-[var(--secondary-color)] ">
             <div className="h-[200px] overflow-hidden relative">
@@ -69,18 +114,38 @@ export default function EventCard({ event }: EventCardProps) {
                     <FaMapMarkerAlt className="text-[var(--secondary-color)] mr-1.5"/>
                     {event.location}
                 </span>
-                </div>
-
-                <p className="text-gray-700 leading-relaxed mb-5">{event.description}</p>
+                </div>                <p className="text-gray-700 leading-relaxed mb-5">{event.description}</p>
 
                 <div className="flex justify-between items-center min-h-[50px]">
-                <button className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md bg-[var(--primary-color)] text-white hover:bg-purple-700">
-                    <FaBell/>
-
-                    Suscribirse
-                </button>
-
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <button 
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${
+                        isSubscribed 
+                        ? 'bg-green-100 text-green-600 hover:bg-green-200' 
+                        : 'bg-[var(--primary-color)] text-white hover:bg-purple-700'
+                    }`}
+                    onClick={handleSubscription}
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        <span className="flex items-center">
+                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Procesando...
+                        </span>
+                    ) : isSubscribed ? (
+                        <>
+                            <FaCheckCircle />
+                            Suscrito
+                        </>
+                    ) : (
+                        <>
+                            <FaBell />
+                            Suscribirse
+                        </>
+                    )}
+                </button>                <div className="flex items-center gap-2 text-sm text-gray-600">
                     <div className="flex">
                     {event.attendees.map((avatar, index) => (
                         <div key={index} 
@@ -90,7 +155,7 @@ export default function EventCard({ event }: EventCardProps) {
                         </div>
                     ))}
                     </div>
-                    <span>Asistiendo</span>
+                    {isSubscribed && <span>Asistiendo</span>}
                 </div>
                 </div>
             </div>
