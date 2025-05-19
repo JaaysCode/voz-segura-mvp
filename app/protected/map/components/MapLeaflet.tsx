@@ -131,8 +131,7 @@ const MapLeaflet = ({
                         resetMarker={resetMarker}
                     />
                 )}
-                
-                {/* Mostrar marcadores guardados */}
+                  {/* Mostrar marcadores guardados */}
                 {savedMarkers.map((marker, index) => {
                     // Define marker colors based on risk type
                     const riskColors = {
@@ -153,7 +152,8 @@ const MapLeaflet = ({
                         iconAnchor: [16, 32],
                     });
                     
-                    return (                        <Marker 
+                    return (
+                        <Marker 
                             key={`saved-marker-${index}`} 
                             position={marker.coordinates} 
                             icon={savedIcon}

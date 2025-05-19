@@ -1,15 +1,18 @@
 import ReportCard from "./ReportCard";
-import { Report } from "../page";
+import { Report } from "@/services/reportService";
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 interface ReportsProps {
   reports: Report[];
+  isLoading?: boolean;
 }
 
-export default function Reports({ reports = [] }: ReportsProps) {
+export default function Reports({ reports = [], isLoading = false }: ReportsProps) {
     // Función para formatear la fecha
-    const formatReportDate = (dateString: string) => {
+    const formatReportDate = (dateString?: string) => {
+        if (!dateString) return "Fecha desconocida";
+        
         try {
             const date = new Date(dateString);
             // Calcular el tiempo transcurrido
@@ -64,20 +67,24 @@ export default function Reports({ reports = [] }: ReportsProps) {
                     mb-4 
                     rounded-full">                        
                 </div>
-                <p className="max-w-[700px] text-[var(--text-color)] mt-4 mx-auto">Estas son algunas de las zonas que nuestra comunidad ha identificado como potencialmente inseguras</p>            </div>
-            <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,1fr))] gap-6 mt-[2rem] mb-20">
-                {reports.length === 0 ? (
+                <p className="max-w-[700px] text-[var(--text-color)] mt-4 mx-auto">Estas son algunas de las zonas que nuestra comunidad ha identificado como potencialmente inseguras</p>            </div>            <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,1fr))] gap-6 mt-[2rem] mb-20">
+                {isLoading ? (
+                    <div className="col-span-full text-center p-8 bg-white rounded-lg shadow-md">
+                        <p className="text-gray-500">Cargando reportes...</p>
+                    </div>
+                ) : reports.length === 0 ? (
                     <div className="col-span-full text-center p-8 bg-white rounded-lg shadow-md">
                         <p className="text-gray-500">No hay reportes disponibles. ¡Sé el primero en reportar una zona!</p>
                     </div>
-                ) : (                    reports.map((report, index) => (
+                ) : (
+                    reports.map((report, index) => (
                         <ReportCard
-                            key={report.id}
+                            key={report.id || index}
                             title={report.title}
                             description={report.description}
-                            location={report.specificLocation || "Ubicación no especificada"}
-                            date={formatReportDate(report.date)}
-                            riskType={getRiskLabel(report.riskType)}
+                            location={report.specific_location || "Ubicación no especificada"}
+                            date={formatReportDate(report.created_at)}
+                            riskType={getRiskLabel(report.risk_type)}
                         />
                     ))
                 )}
